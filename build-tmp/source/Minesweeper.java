@@ -1,11 +1,29 @@
-import de.bezier.guido.*;
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import de.bezier.guido.*; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class Minesweeper extends PApplet {
+
+
 public static int NUM_ROWS = 20;
 public static int NUM_COLS = 20;
 private MSButton[][] buttons;
 private ArrayList <MSButton> bombs = new ArrayList <MSButton>();
 private boolean gameOver = false;
 
-void setup ()
+public void setup ()
 {
     size(400, 400);
     textAlign(CENTER,CENTER);
@@ -57,7 +75,7 @@ public void displayLosingMessage()
     for(int r = 0; r < NUM_ROWS; r++)
         for(int c = 0; c < NUM_COLS; c++)   
             if(bombs.contains(buttons[r][c]) && c != 8 && c != 9)
-                buttons[r][c].setLabel("!!!");
+                buttons[r][c].setLabel("!!");
                                  
     String message = new String("... Really??...");
     for(int i = 0; i < message.length(); i++ )
@@ -221,4 +239,13 @@ public class MSButton
             numBombs++;
         return numBombs;
     }
+}
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "Minesweeper" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
+  }
 }
