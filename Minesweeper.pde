@@ -24,7 +24,7 @@ void setup ()
 }
 public void setBombs()
 {
-    while(bombs.size() < 40)
+    while(bombs.size() < 20)
     {
         int r = (int)(Math.random() * NUM_ROWS);
         int c = (int)(Math.random() * NUM_COLS);
@@ -104,13 +104,52 @@ public void displayLosingMessage()
 }
 public void displayWinningMessage()
 {
-    String message = new String("You passed a basic, level one, minesweeper game, are you really proud of yourself?");
+   for(int r = 0; r < NUM_ROWS; r++)
+        for(int c = 0; c < NUM_COLS; c++)   
+            if(bombs.contains(buttons[r][c]) && c != 8 && c != 9)
+                buttons[r][c].setLabel("!!!");
+                                 
+    String message = new String("good, I guess...");
     for(int i = 0; i < message.length(); i++ )
     {
-        buttons[9][i+6].clicked = true;
-        if(!bombs.contains(buttons[9][i]))
-            bombs.add(buttons[9][i]);
-        buttons[9][i].setLabel(message.substring(i,i+1));
+        int r;
+        int k = 0;
+        int w = 0;
+        if (i > 40) {
+             r = 10; 
+        }
+        else if (i> 20) {
+            r = 9;
+        }
+        else {
+            r= 8;
+        }
+        
+        if (r == 8) {
+            buttons[r][i].clicked = true;
+        if(!bombs.contains(buttons[r][i]))
+            bombs.add(buttons[r][i]);
+        buttons[r][i].setLabel(message.substring(i,i+1));
+             bombs.add(buttons[r][i]);
+
+        }
+        if (r==9) {
+            buttons[r][k].clicked = true;
+        if(!bombs.contains(buttons[r][k]))
+            bombs.add(buttons[r][k]);
+        buttons[r][i].setLabel(message.substring(i,k+1));
+             bombs.add(buttons[r][k]);
+             k = k+1;
+        }
+         if (r== 10) {
+            buttons[r][i].clicked = true;
+        if(!bombs.contains(buttons[r][i]))
+            bombs.add(buttons[r][i]);
+        buttons[r][i].setLabel(message.substring(i,i+1));
+             bombs.add(buttons[r][w]);
+             w = w+1;
+        }
+       
     }
 }
 
